@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b99a45cb-a136-4d23-9cd5-ff822bf10282" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/AndroidProjectSystem.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/BalanceReport.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/InMemoryTransactionRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/ReportUtils.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/Transaction.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/TransactionRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/personalfinancetracer/totalSummary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalfinancetracer/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/personalfinancetracer/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalfinancetracer/feature/report/categorySummary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/personalfinancetracer/feature/report/categorySummary.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personalfinancetracer/feature/report/monthlyCategorySummary.kt" beforeDir="false" afterPath="$PROJECT_DIR$/personalfinancetracer/feature/report/monthlyCategorySummary.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "bassantelboray"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/BaghdadTeam/personal-finance-tracer",
+    "accountId": "42cae1e6-c791-44d9-adaf-147f62786510"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2vSmhVNkfl841Q9eeNaU1OO9u2I" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/report",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/DELL/personal-finance-tracer/app/src/main/java/com"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b99a45cb-a136-4d23-9cd5-ff822bf10282" name="Changes" comment="" />
+      <created>1744146969303</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744146969303</updated>
+    </task>
+    <servers />
+  </component>
+</project>
