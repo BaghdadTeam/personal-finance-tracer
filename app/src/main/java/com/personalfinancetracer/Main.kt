@@ -1,6 +1,12 @@
 package com.personalfinancetracer
 
-    fun main() {
+import com.personalfinancetracer.feature.report.FileReader
+import com.personalfinancetracer.feature.report.FullReport
+import com.personalfinancetracer.feature.summary.FullSummary
+import com.personalfinancetracer.feature.summary.Summary
+import java.io.File
+
+fun main() {
         val transactions = mutableListOf<Transaction>()
 
         while (true) {
@@ -36,3 +42,12 @@ package com.personalfinancetracer
         }
     }
 
+fun SummaryReportImplementation(){
+    val fileReader : FileReader = FileReader()
+    val fullReport: FullReport = FullReport(FullSummary(fileReader))
+    fullReport.getTotalSummaryReport()
+    fullReport.getMonthlySummaryReport("January")
+    fullReport.getCategorySummaryReport("Salary")
+    fullReport.getCategoryMonthlySummaryReport("Salary","January")
+
+}
