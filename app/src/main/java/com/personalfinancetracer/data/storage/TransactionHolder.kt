@@ -3,6 +3,7 @@ package com.personalfinancetracer.data.storage
 import com.personalfinancetracer.repository.DataSource
 
 object TransactionHolder {
+
     val transactions: MutableList<Any> = mutableListOf()
 
     private val fileTransactionStorage: DataSource = FileTransactionStorage()
@@ -20,7 +21,7 @@ object TransactionHolder {
             val state = memoryTransactionStorage.saveTransactions<Any>(fileTransactionStorage.loadTransactions())
             if (state) {
                 println("Transactions have been loaded from file to memory")
-                transactions.addAll(fileTransactionStorage.loadTransactions())
+                transactions.addAll(memoryTransactionStorage.loadTransactions())
             }
         }
 
