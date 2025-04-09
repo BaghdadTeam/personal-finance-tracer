@@ -12,25 +12,6 @@ import java.io.File
 class FileTransactionStorage : DataSource {
 
     /**
-     * Saves a list of transactions to the file.
-     *
-     * @param transactions The list of transactions to save.
-     * @return `true` if the transactions were successfully saved, `false` otherwise.
-     */
-    override fun saveTransactions(transactions: List<Transaction>): Boolean {
-        return try {
-            file.printWriter().use { output ->
-                output.println(JsonUtil.serializeTransactionList(transactions))
-            }
-            println("All transactions have been saved to file: $FILE_NAME")
-            true
-        } catch (e: Exception) {
-            println("Sorry there were an error while saving your transactions to the file, please try again later")
-            false
-        }
-    }
-
-    /**
      * Saves a single transaction to the file.
      *
      * @param transaction The transaction to save.
@@ -52,7 +33,7 @@ class FileTransactionStorage : DataSource {
      *
      * @return A list of transactions loaded from the file. Returns an empty list if an error occurs.
      */
-    override fun loadTransactions(): List<Transaction> {
+    override fun getAllTransactions(): List<Transaction> {
         val transaction: List<Transaction> = try {
             file.readText().let { JsonUtil.deserializeTransactionList(it) }
         } catch (e: Exception) {
@@ -60,6 +41,25 @@ class FileTransactionStorage : DataSource {
             emptyList()
         }
         return transaction
+    }
+
+    override fun editTransaction(transactionID: String, transaction: Transaction): Boolean {
+        return try {
+            val transactions = getAllTransactions().toMutableList()
+            val index = transactions.indexOfFirst { it.id.toString() == transactionID }
+            if (index != -1) {
+                transactions[index] = transaction
+                file.writeText(JsonUtil.serializeTransactionList(transactions))
+                println("Transaction has been edited in the file: $FILE_NAME")
+                true
+            } else {
+                println("Transaction not found")
+                false
+            }
+        } catch (e: Exception) {
+            println("Sorry there were an error while editing your transaction in the file, please try again later")
+            false
+        }
     }
 
     companion object {
