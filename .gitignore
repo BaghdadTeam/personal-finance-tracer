@@ -19,5 +19,6 @@ gradlew.bat
 /.name
 /AndroidProjectSystem.xml
 /deploymentTargetSelector.xml
+/.idea/deploymentTargetSelector.xml
 /.idea/runConfigurations.xml
 /.idea
