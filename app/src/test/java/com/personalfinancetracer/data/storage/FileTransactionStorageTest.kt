@@ -22,7 +22,6 @@ class FileTransactionStorageTest {
     @Test
     fun `test save transactions to file`() {
 
-
         val file = File(testFileName)
         assert(file.exists())
         assert(file.readText().contains("Groceries"))
