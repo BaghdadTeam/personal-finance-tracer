@@ -62,6 +62,25 @@ class FileTransactionStorage : DataSource {
         }
     }
 
+    override fun deleteTransaction(transactionID: String, transaction: Transaction): Boolean {
+        return try {
+            val transactions = getAllTransactions().toMutableList()
+            val index = transactions.indexOfFirst { it.id.toString() == transactionID }
+            if (index != -1) {
+                transactions.removeAt(index)
+                file.writeText(JsonUtil.serializeTransactionList(transactions))
+                println("Transaction has been deleted from the file: $FILE_NAME")
+                true
+            } else {
+                println("Transaction not found")
+                false
+            }
+        } catch (e: Exception) {
+            println("Sorry there were an error while deleting your transaction from the file, please try again later")
+            false
+        }
+    }
+
     companion object {
         /**
          * The name of the file where transactions are stored.
