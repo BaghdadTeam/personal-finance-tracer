@@ -1,4 +1,6 @@
-package com.personalfinancetracer.feature.report
+package com.personalfinancetracer.feature.summary
+
+import com.personalfinancetracer.feature.report.FileReader
 
 
 class CategorySummary() {

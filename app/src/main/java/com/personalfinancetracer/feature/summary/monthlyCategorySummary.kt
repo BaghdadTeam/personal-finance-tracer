@@ -29,7 +29,6 @@ class MonthlyCategorySummary {
         // idk but there should be something like deposit - withdeaw ,you may not need it
         // println("the Current for $category is $withDraw")
 
-
     }
 
     fun isDateInRange(inputDate : String, inputMonth:String) : Boolean {
