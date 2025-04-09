@@ -1,4 +1,4 @@
-package com.personalfinancetracer.model
+package com.personalfinancetracer.models
 
 enum class Category {
     SALARY,

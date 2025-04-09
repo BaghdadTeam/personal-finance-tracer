@@ -1,12 +1,12 @@
-package com.personalfinancetracer.model
+package com.personalfinancetracer.models
 
 import java.util.Date
+import java.util.UUID
 
 data class Transaction(
-    val id: Int,
+    val id: UUID,
     val date: Date,
     val category: Category,
     val type: TransactionType,
-    val amount: Int,
-    val isDelete: Boolean = false,
+    val amount: Double,
 )
