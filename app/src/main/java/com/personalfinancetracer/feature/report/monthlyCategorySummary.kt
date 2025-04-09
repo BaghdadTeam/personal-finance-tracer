@@ -8,7 +8,6 @@ import java.util.Locale
 class MonthlyCategorySummary{
     fun summary(reader : fileReader , category : String , month : String) : Map<String , Int>{
         // we may have to make it in a diffrent class
-        val categoryRows = mutableListOf<Map<String,Any>>()
 
         var deposit = 0
         var withDraw = 0

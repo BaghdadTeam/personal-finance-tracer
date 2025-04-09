@@ -5,7 +5,6 @@ import categorySummary
 class CategorySummary{
      fun summary(reader : fileReader , category : String) : Map<String , Int>{
         // we may have to make it in a diffrent class
-        val categoryRows = mutableListOf<Map<String,Any>>()
 
         var deposit = 0
         var withDraw = 0
