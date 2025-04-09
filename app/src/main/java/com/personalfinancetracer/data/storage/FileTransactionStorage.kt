@@ -32,7 +32,13 @@ class FileTransactionStorage : DataSource {
     }
 
     override fun <T> loadTransactions(): List<T> {
-        TODO("Not yet implemented")
+        val transaction: List<T> = try {
+            file.readText().let { JsonUtil.deserializeTransactionList(it) }
+        } catch (e: Exception) {
+            println("Sorry there were an error while loading your transactions from the file, please try again later")
+            emptyList()
+        }
+        return transaction
     }
 
     companion object {
