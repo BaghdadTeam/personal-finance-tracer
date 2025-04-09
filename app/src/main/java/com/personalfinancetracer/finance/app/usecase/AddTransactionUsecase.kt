@@ -7,7 +7,7 @@ import com.personalfinancetracer.models.TransactionType
 
 class AddTransactionUseCase: Command {
 
-private var isAdding = false
+private var isAdding = true
     override fun execute() {
         while (isAdding){
 
