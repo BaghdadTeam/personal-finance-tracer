@@ -1,7 +1,6 @@
-package com.personalfinancetracer
+import finance.app.FinanceApp
 
 fun main() {
-
-    println("test");
-
+    val financeApp = FinanceApp()
+    financeApp.run()
 }
