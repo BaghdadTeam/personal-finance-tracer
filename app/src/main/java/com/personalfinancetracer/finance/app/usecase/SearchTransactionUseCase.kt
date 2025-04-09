@@ -3,7 +3,6 @@ package com.personalfinancetracer.finance.app.usecase
 import com.personalfinancetracer.finance.app.Command
 
 class SearchTransactionUseCase: Command {
-    private val listOfTransactionsIds: List<Int> = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
     override fun execute() {
         println("Please Enter the transaction ID you want to search for : ")
@@ -11,6 +10,7 @@ class SearchTransactionUseCase: Command {
 
         if (userInput.isNotEmpty() && userInput.isNotBlank()) {
             if (idExists(userInput)) {
+
                 println("Transaction Details : Amount 10 , Type income , Category Food")
                 println(
                     "Do you want to delete or edit this transaction ?(1 for delete , 2 for edit ," +
@@ -18,11 +18,14 @@ class SearchTransactionUseCase: Command {
                 )
                 val userChoice = readln()
                 if (userChoice.toIntOrNull() == 1) {
+                    // TODO: implement actual deleting transaction from transactions file
                     println("Transaction Deleted Successfully")
                 } else if (userChoice.toIntOrNull() == 2) {
+                    // TODO: implement actual updating transaction from transactions file
                     println("Please Enter the new updated transaction details separated by space like this (amount  income/expense  category): ")
 
                 } else {
+
                     println("Exiting ...")
                     this.execute()
                 }
@@ -37,7 +40,8 @@ class SearchTransactionUseCase: Command {
 
     private fun idExists(id: String): Boolean {
         val intID: Int = id.toIntOrNull() ?: return false
-        return intID in listOfTransactionsIds
+        // TODO: use actual Transactions file to check if ID exists
+        return intID in 1..10
     }
 }
 
