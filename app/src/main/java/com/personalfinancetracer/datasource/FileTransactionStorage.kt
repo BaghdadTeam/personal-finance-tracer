@@ -1,4 +1,4 @@
-package com.personalfinancetracer.data.storage
+package com.personalfinancetracer.datasource
 
 import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.repository.DataSource

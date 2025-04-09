@@ -12,18 +12,12 @@ interface DataSource {
      */
     fun saveTransaction(transaction: Transaction): Boolean
 
-    /**
-     * Saves a list of transactions.
-     *
-     * @param transactions The list of transactions to be saved.
-     * @return `true` if all transactions were saved successfully, `false` otherwise.
-     */
-    fun saveTransactions(transactions: List<Transaction>): Boolean
 
     /**
      * Loads all transactions.
      *
      * @return A list of transactions.
      */
-    fun loadTransactions(): List<Transaction>
+    fun getAllTransactions(): List<Transaction>
+
 }
