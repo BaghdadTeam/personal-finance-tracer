@@ -1,5 +1,6 @@
 package com.personalfinancetracer.data.storage
 
+import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.repository.DataSource
 
 /**
@@ -11,7 +12,7 @@ class InMemoryTransactionStorage: DataSource {
     /**
      * A mutable list to hold transactions in memory.
      */
-    val transactions = mutableListOf<Any>()
+    val transactions = mutableListOf<Transaction>()
 
     /**
      * Saves a single transaction to the in-memory storage.
@@ -20,10 +21,10 @@ class InMemoryTransactionStorage: DataSource {
      * @param transaction The transaction to be saved.
      * @return `true` if the transaction was saved successfully, `false` otherwise.
      */
-    override fun <T> saveTransaction(transaction: T): Boolean {
+    override fun saveTransaction(transaction: Transaction): Boolean {
         return try {
             this.transactions.clear()
-            this.transactions.add(transaction as Any)
+            this.transactions.add(transaction)
             true
         } catch (e: Exception) {
             println("Sorry there were an error while saving your transaction to the file, please try again later")
@@ -38,10 +39,10 @@ class InMemoryTransactionStorage: DataSource {
      * @param transactions The list of transactions to be saved.
      * @return `true` if the transactions were saved successfully, `false` otherwise.
      */
-    override fun <T> saveTransactions(transactions: List<T>): Boolean {
+    override fun saveTransactions(transactions: List<Transaction>): Boolean {
         return try {
             this.transactions.clear()
-            this.transactions.addAll(transactions as List<Any>)
+            this.transactions.addAll(transactions)
             true
         } catch (e: Exception) {
             println("Sorry there were an error while saving your transactions to the file, please try again later")
@@ -52,8 +53,7 @@ class InMemoryTransactionStorage: DataSource {
     /**
      * Loads all transactions from the in-memory storage.
      *
-     * @param T The type of the transactions.
      * @return A list of transactions of type `T`.
      */
-    override fun <T> loadTransactions(): List<T> = transactions as List<T>
+    override fun loadTransactions(): List<Transaction> = transactions
 }

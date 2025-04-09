@@ -1,10 +1,11 @@
 package com.personalfinancetracer.data.storage
 
+import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.repository.DataSource
 
 object TransactionHolder {
 
-    val transactions: MutableList<Any> = mutableListOf()
+    val transactions: MutableList<Transaction> = mutableListOf()
 
     private val fileTransactionStorage: DataSource = FileTransactionStorage()
     private val memoryTransactionStorage: DataSource = InMemoryTransactionStorage()
@@ -18,7 +19,7 @@ object TransactionHolder {
  */
         fun loadTransactions() {
             transactions.clear()
-            val state = memoryTransactionStorage.saveTransactions<Any>(fileTransactionStorage.loadTransactions())
+            val state = memoryTransactionStorage.saveTransactions(fileTransactionStorage.loadTransactions())
             if (state) {
                 println("Transactions have been loaded from file to memory")
                 transactions.addAll(memoryTransactionStorage.loadTransactions())
@@ -32,7 +33,7 @@ object TransactionHolder {
  * @return `true` if the transaction was successfully saved to both memory and file storage,
  *         `false` otherwise.
  */
-    fun saveTransaction(transaction: Any): Boolean {
+    fun saveTransaction(transaction: Transaction): Boolean {
         val memoryState = memoryTransactionStorage.saveTransaction(transaction)
         val fileState = fileTransactionStorage.saveTransaction(transaction)
         return if (memoryState && fileState) {
@@ -43,4 +44,6 @@ object TransactionHolder {
             false
         }
     }
+
+    // TODO: Implement editTransaction and deleteTransaction method
 }

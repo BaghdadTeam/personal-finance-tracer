@@ -1,5 +1,7 @@
 package com.personalfinancetracer.repository
 
+import com.personalfinancetracer.models.Transaction
+
 interface DataSource {
 
     /**
@@ -8,7 +10,7 @@ interface DataSource {
      * @param transaction The transaction to be saved.
      * @return `true` if the transaction was saved successfully, `false` otherwise.
      */
-    fun <T> saveTransaction(transaction: T): Boolean
+    fun saveTransaction(transaction: Transaction): Boolean
 
     /**
      * Saves a list of transactions.
@@ -16,12 +18,12 @@ interface DataSource {
      * @param transactions The list of transactions to be saved.
      * @return `true` if all transactions were saved successfully, `false` otherwise.
      */
-    fun <T> saveTransactions(transactions: List<T>): Boolean
+    fun saveTransactions(transactions: List<Transaction>): Boolean
 
     /**
      * Loads all transactions.
      *
      * @return A list of transactions.
      */
-    fun <T> loadTransactions(): List<T>
+    fun loadTransactions(): List<Transaction>
 }

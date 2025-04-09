@@ -1,5 +1,6 @@
 package com.personalfinancetracer.data.storage
 
+import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.repository.DataSource
 import com.personalfinancetracer.utils.JsonUtil
 import java.io.File
@@ -16,7 +17,7 @@ class FileTransactionStorage : DataSource {
      * @param transactions The list of transactions to save.
      * @return `true` if the transactions were successfully saved, `false` otherwise.
      */
-    override fun <T> saveTransactions(transactions: List<T>): Boolean {
+    override fun saveTransactions(transactions: List<Transaction>): Boolean {
         return try {
             file.printWriter().use { output ->
                 output.println(JsonUtil.serializeTransactionList(transactions))
@@ -35,7 +36,7 @@ class FileTransactionStorage : DataSource {
      * @param transaction The transaction to save.
      * @return `true` if the transaction was successfully saved, `false` otherwise.
      */
-    override fun <T> saveTransaction(transaction: T): Boolean {
+    override fun saveTransaction(transaction: Transaction): Boolean {
         return try {
             file.appendText(JsonUtil.serializeTransaction(transaction))
             println("Transaction has been saved to file: $FILE_NAME")
@@ -51,8 +52,8 @@ class FileTransactionStorage : DataSource {
      *
      * @return A list of transactions loaded from the file. Returns an empty list if an error occurs.
      */
-    override fun <T> loadTransactions(): List<T> {
-        val transaction: List<T> = try {
+    override fun loadTransactions(): List<Transaction> {
+        val transaction: List<Transaction> = try {
             file.readText().let { JsonUtil.deserializeTransactionList(it) }
         } catch (e: Exception) {
             println("Sorry there were an error while loading your transactions from the file, please try again later")
