@@ -1,7 +1,6 @@
 package com.personalfinancetracer.datasource
 
 import com.personalfinancetracer.models.Transaction
-import com.personalfinancetracer.repository.DataSource
 import com.personalfinancetracer.utils.JsonUtil
 import java.io.File
 
@@ -43,6 +42,13 @@ class FileTransactionStorage : DataSource {
         return transaction
     }
 
+    /**
+     * Edits an existing transaction in the file.
+     *
+     * @param transactionID The ID of the transaction to edit.
+     * @param transaction The updated transaction object.
+     * @return `true` if the transaction was successfully edited, `false` otherwise.
+     */
     override fun editTransaction(transactionID: String, transaction: Transaction): Boolean {
         return try {
             val transactions = getAllTransactions().toMutableList()
@@ -62,6 +68,14 @@ class FileTransactionStorage : DataSource {
         }
     }
 
+
+    /**
+     * Deletes a transaction from the file.
+     *
+     * @param transactionID The ID of the transaction to delete.
+     * @param transaction The transaction object to delete.
+     * @return `true` if the transaction was successfully deleted, `false` otherwise.
+     */
     override fun deleteTransaction(transactionID: String, transaction: Transaction): Boolean {
         return try {
             val transactions = getAllTransactions().toMutableList()

@@ -1,7 +1,6 @@
-package com.personalfinancetracer.repository
+package com.personalfinancetracer.datasource
 
 import com.personalfinancetracer.models.Transaction
-import java.util.UUID
 
 interface DataSource {
 
