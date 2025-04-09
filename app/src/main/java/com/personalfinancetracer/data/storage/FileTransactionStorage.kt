@@ -7,7 +7,7 @@ import java.io.File
 class FileTransactionStorage : DataSource {
 
     override fun <T> saveTransactions(transactions: List<T>): Boolean {
-        val file = File(FILE_NAME)
+
         return try {
             file.printWriter().use { output ->
                 output.println(JsonUtil.serializeTransactionList(transactions))
@@ -21,7 +21,14 @@ class FileTransactionStorage : DataSource {
     }
 
     override fun <T> saveTransaction(transaction: T): Boolean {
-        TODO("Not yet implemented")
+        return try {
+            file.appendText(JsonUtil.serializeTransaction(transaction))
+            println("Transaction has been saved to file: $FILE_NAME")
+            true
+        } catch (e: Exception) {
+            println("Sorry there were an error while saving your transaction to the file, please try again later")
+            false
+        }
     }
 
     override fun <T> loadTransactions(): List<T> {
@@ -30,5 +37,6 @@ class FileTransactionStorage : DataSource {
 
     companion object {
         private const val FILE_NAME = "transactions.txt"
+        val file = File(FILE_NAME)
     }
 }
