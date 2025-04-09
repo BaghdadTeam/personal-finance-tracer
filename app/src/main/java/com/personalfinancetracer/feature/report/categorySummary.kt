@@ -1,31 +1,42 @@
 package com.personalfinancetracer.feature.report
 
-import categorySummary
+import java.io.File
 
-class CategorySummary{
-     fun summary(reader : fileReader , category : String) : Map<String , Int>{
-        // we may have to make it in a diffrent class
-        val categoryRows = mutableListOf<Map<String,Any>>()
+data class Transaction(
+    val category: String,
+    val type: String, // "Deposit" or "Withdraw"
+    val amount: Int
+)
+
+class CategorySummary {
+    fun summary(filePath: String, category: String): Map<String, Int> {
+        // Read the file and parse it into Transactions
+        val reader = File(filePath).readLines().map { line ->
+            val parts = line.split(",") // Assuming CSV format
+            Transaction(parts[0], parts[1], parts[2].toInt())
+        }
 
         var deposit = 0
         var withDraw = 0
 
-        for(row in reader){
-            if (row.category == category){
-                if (row.type == "Deposit"){
-                    deposit += row.Amount
-                }else{
-
-                    withDraw += row.Amount
+        for (row in reader) {
+            if (row.category == category) {
+                if (row.type == "Deposit") {
+                    deposit += row.amount
+                } else {
+                    withDraw += row.amount
                 }
             }
         }
 
-        return mapOf("Deposit" to deposit , "WithDraw" to withDraw)
+        // Calculate balance
+        val balance = deposit - withDraw
 
-        // idk but there should be something like deposit - withdeaw ,you may not need it
-        // println("the Current for $category is $withDraw")
-
-
+        // Return the results as a map
+        return mapOf(
+            "Deposit" to deposit,
+            "WithDraw" to withDraw,
+            "Balance" to balance
+        )
     }
 }
