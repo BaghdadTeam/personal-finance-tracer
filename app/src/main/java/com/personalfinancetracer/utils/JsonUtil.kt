@@ -1,5 +1,6 @@
 package com.personalfinancetracer.utils
 
+import org.json.JSONArray
 import org.json.JSONObject
 
 object JsonUtil {
@@ -12,9 +13,17 @@ object JsonUtil {
         }.toString()
     }
 
-    fun <T>deserializeTransaction(jsonString: String): String {
+    fun <T>deserializeTransaction(jsonString: String): T {
         val obj = JSONObject(jsonString)
         TODO("Change the return type to Transaction and implement the deserialization logic")
-        return obj.toString()
+        return obj
+    }
+
+    fun <T>serializeTransactionList(transactions: List<T>): String {
+        val jsonArray = JSONArray()
+        transactions.forEach { transaction ->
+            jsonArray.put(JSONObject(serializeTransaction(transaction)))
+        }
+        return jsonArray.toString()
     }
 }
