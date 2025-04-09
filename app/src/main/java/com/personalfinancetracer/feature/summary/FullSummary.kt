@@ -68,4 +68,23 @@ class FullSummary(override var reader: FileReader) : Summary{
 
     }
 
+
+    override fun getTotalSummary(): Map<String, Int> {
+
+        var deposit = 0
+        var withDraw = 0
+
+        for (row in reader.readFile()) {
+            if (row["Type"].toString().lowercase() == "Deposit".lowercase()) {
+                deposit += row["Amount"].toString().toInt()
+            } else {
+
+                withDraw += row["Amount"].toString().toInt()
+            }
+        }
+
+        return mapOf("Deposit" to deposit, "WithDraw" to withDraw)
+
+    }
+
 }
