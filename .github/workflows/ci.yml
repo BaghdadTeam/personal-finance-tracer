@@ -1,0 +1,44 @@
+# Workflow name
+name: Android CI
+
+# This workflow runs when you push or make a pull request to the development branch
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    # This job runs on multiple operating systems
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macOS-latest ]  # Test on Ubuntu, Windows, and macOS
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4         # Pulls your repo code
+
+      # Set up JDK v 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      # Grant execute permission for Unix systems
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # Build the project using Gradle
+      - name: Build with Gradle
+        run: ./gradlew build             # This will compile the project and run any checks
+
+      - name: Run Android Lint
+        run: ./gradlew lint
+
+      # Run unit tests
+      # - name: Run Unit Tests
+      #   run: ./gradlew test
