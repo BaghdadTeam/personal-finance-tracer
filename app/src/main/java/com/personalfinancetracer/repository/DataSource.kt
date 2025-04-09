@@ -1,6 +1,7 @@
 package com.personalfinancetracer.repository
 
 import com.personalfinancetracer.models.Transaction
+import java.util.UUID
 
 interface DataSource {
 
@@ -20,4 +21,21 @@ interface DataSource {
      */
     fun getAllTransactions(): List<Transaction>
 
+    /**
+     * Edits an existing transaction.
+     *
+     * @param transactionID The unique identifier of the transaction to be edited.
+     * @param transaction The transaction object containing updated details.
+     * @return `true` if the transaction was edited successfully, `false` otherwise.
+     */
+    fun editTransaction(transactionID: String, transaction: Transaction): Boolean
+
+    /**
+     * Deletes an existing transaction.
+     *
+     * @param transactionID The unique identifier of the transaction to be deleted.
+     * @param transaction The transaction object to be deleted.
+     * @return `true` if the transaction was deleted successfully, `false` otherwise.
+     */
+    fun deleteTransaction(transactionID: String, transaction: Transaction): Boolean
 }
