@@ -5,14 +5,18 @@ import com.personalfinancetracer.feature.summary.FullSummary
 
 class FullReport(override var fullSummary: FullSummary): Report {
     override fun getCategorySummaryReport(category: String) {
-        fullSummary.getCategorySummary(category)
+        println(fullSummary.getCategorySummary(category))
     }
 
     override fun getMonthlySummaryReport(month: String) {
-        fullSummary.getMonthlySummary(month)
+        println(fullSummary.getMonthlySummary(month))
     }
 
     override fun getCategoryMonthlySummaryReport(category: String, month: String) {
-        fullSummary.getCategoryMonthlySummary(category, month)
+        println(fullSummary.getCategoryMonthlySummary(category, month))
     }
+    override fun getTotalSummaryReport() {
+        println(fullSummary.getTotalSummary())
+    }
+
 }
