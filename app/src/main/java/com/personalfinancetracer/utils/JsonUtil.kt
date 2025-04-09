@@ -16,7 +16,7 @@ object JsonUtil {
     fun <T>deserializeTransaction(jsonString: String): T {
         val obj = JSONObject(jsonString)
         TODO("Change the return type to Transaction and implement the deserialization logic")
-        return obj
+        return obj as T
     }
 
     fun <T>serializeTransactionList(transactions: List<T>): String {
@@ -25,5 +25,15 @@ object JsonUtil {
             jsonArray.put(JSONObject(serializeTransaction(transaction)))
         }
         return jsonArray.toString()
+    }
+
+    fun <T>deserializeTransactionList(jsonString: String): List<T> {
+        val jsonArray = JSONArray(jsonString)
+        val transactions = mutableListOf<T>()
+        for (i in 0 until jsonArray.length()) {
+            val jsonObject = jsonArray.getJSONObject(i)
+            transactions.add(deserializeTransaction(jsonObject.toString()))
+        }
+        return transactions
     }
 }
