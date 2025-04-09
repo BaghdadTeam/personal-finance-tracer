@@ -19,7 +19,7 @@ class AddTransactionUseCase: Command {
 
             println(
                 "Successfully Added New  " +
-                        "Transactions : $amount$ ${category.uppercase()} ${transactionType.uppercase()}"
+                        "Transaction : $amount$ ${category.uppercase()} ${transactionType.uppercase()}"
             )
         }
     }
