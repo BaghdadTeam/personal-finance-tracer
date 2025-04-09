@@ -3,14 +3,17 @@ package com.personalfinancetracer.feature.summary
 import com.personalfinancetracer.utils.isDateInRange
 import com.personalfinancetracer.feature.report.FileReader
 
+//idk if i should make reader : FileReader as a var or give it in constructor
+
 class FullSummary(override var reader: FileReader) : Summary{
+
     override fun getCategorySummary(category: String): Map<String, Int> {
         var deposit = 0
         var withDraw = 0
 
         for (row in reader.readFile()) {
-            if (row["Category"] == category) {
-                if (row["type"] == "Deposit") {
+            if (row["Category"].toString().lowercase() == category.lowercase()) {
+                if (row["Type"].toString().lowercase() == "Deposit".lowercase()) {
                     deposit += row["Amount"].toString().toInt()
                 } else {
 
@@ -29,7 +32,7 @@ class FullSummary(override var reader: FileReader) : Summary{
 
         for (row in reader.readFile()) {
             if (isDateInRange(row["Date"].toString(), month)) {
-                if (row["type"].toString().lowercase() == "Deposit".lowercase()) {
+                if (row["Type"].toString().lowercase() == "Deposit".lowercase()) {
                     deposit += row["Amount"].toString().toInt()
                 } else {
                     withDraw += row["Amount"].toString().toInt()
@@ -44,7 +47,6 @@ class FullSummary(override var reader: FileReader) : Summary{
         category: String,
         month: String
     ): Map<String, Int> {
-        // we may have to make it in a different class
 
         var deposit = 0
         var withDraw = 0
@@ -52,7 +54,7 @@ class FullSummary(override var reader: FileReader) : Summary{
         for (row in reader.readFile()) {
             if (isDateInRange(row["Date"].toString(), month)) {
                 if (row["Category"].toString().lowercase() == category.lowercase()) {
-                    if (row["type"].toString().lowercase() == "Deposit".lowercase()) {
+                    if (row["Type"].toString().lowercase() == "Deposit".lowercase()) {
                         deposit += row["Amount"].toString().toInt()
                     } else {
 
