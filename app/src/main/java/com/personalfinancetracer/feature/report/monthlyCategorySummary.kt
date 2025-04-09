@@ -1,51 +1,81 @@
 package com.personalfinancetracer.feature.report
 
+import java.io.File
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAdjusters
 import java.util.Locale
+fun main() {
+    val monthlyCategorySummary = MonthlyCategorySummary()
 
+    // Path to the CSV file
+    val filePath = "transactions.csv"
 
-class MonthlyCategorySummary{
-    fun summary(reader : fileReader , category : String , month : String) : Map<String , Int>{
-        // we may have to make it in a diffrent class
-        val categoryRows = mutableListOf<Map<String,Any>>()
+    // Generate summary for a specific category and month
+    val summary = monthlyCategorySummary.summary(filePath, "Food", "OCTOBER")
+
+    // Print the summary
+    println(summary)
+}
+data class Transactions(
+    val category: String,
+    val type: String, // "Deposit" or "Withdraw"
+    val amount: Int,
+    val date: String // Format: "yyyy-MM-dd"
+)
+
+class MonthlyCategorySummary {
+    fun summary(filePath: String, category: String, month: String): Map<String, Int> {
+        // Read the file and parse it into Transactions
+        val reader = File(filePath).readLines().mapNotNull { line ->
+            try {
+                val parts = line.split(",")
+                if (parts.size == 4) {
+                    Transactions(parts[0], parts[1], parts[2].toInt(), parts[3])
+                } else {
+                    null
+                }
+            } catch (e: Exception) {
+                println("Error parsing line: $line")
+                null
+            }
+        }
 
         var deposit = 0
         var withDraw = 0
 
-        for(row in reader){
-            if (isDateInRange(row.Date , month)){
-                if (row.category == category){
-                    if (row.type == "Deposit"){
-                        deposit += row.Amount
-                    }else{
-
-                        withDraw += row.Amount
+        for (row in reader) {
+            if (isDateInRange(row.date, month)) {
+                if (row.category == category) {
+                    if (row.type == "Deposit") {
+                        deposit += row.amount
+                    } else {
+                        withDraw += row.amount
                     }
                 }
             }
         }
 
-        return mapOf("Deposit" to deposit , "WithDraw" to withDraw)
+        // Calculate balance
+        val balance = deposit - withDraw
 
-        // idk but there should be something like deposit - withdeaw ,you may not need it
-        // println("the Current for $category is $withDraw")
-
-
+        // Return the results as a map
+        return mapOf(
+            "Deposit" to deposit,
+            "WithDraw" to withDraw,
+            "Balance" to balance
+        )
     }
 
-    fun isDateInRange(date : String, month:String) : Boolean{
-
-        val month = java.time.Month.valueOf(month.uppercase(Locale.getDefault()))
-
+    fun isDateInRange(date: String, month: String): Boolean {
+        val parsedMonth = Month.valueOf(month.uppercase(Locale.getDefault()))
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val date = LocalDate.parse(date, formatter)
+        val parsedDate = LocalDate.parse(date, formatter)
 
-        return if (date in LocalDate.of(date.year, month, 1) .. LocalDate.of(date.year,month,31)){
-             true
-        }else{
-             false
-        }
+        val firstDayOfMonth = LocalDate.of(parsedDate.year, parsedMonth, 1)
+        val lastDayOfMonth = firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth())
 
+        return parsedDate in firstDayOfMonth..lastDayOfMonth
     }
 }
