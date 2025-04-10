@@ -12,4 +12,13 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+.properties
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
+gradlew.bat
+/.name
+/AndroidProjectSystem.xml
+/deploymentTargetSelector.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/runConfigurations.xml
+/.idea
