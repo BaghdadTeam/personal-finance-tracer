@@ -40,5 +40,5 @@ jobs:
         run: ./gradlew lint
 
       # Run unit tests
-      # - name: Run Unit Tests
-      #   run: ./gradlew test
+      - name: Run Unit Tests
+        run: ./gradlew test
