@@ -18,7 +18,7 @@ object JsonUtil {
      */
     fun serializeTransaction(transaction: Transaction): String {
         return JSONObject().apply {
-            put("id", transaction)
+            put("id", transaction.id.toString())
             put("date", transaction.date.time)
             put("category", transaction.category.name)
             put("type", transaction.type.name)
@@ -37,7 +37,7 @@ object JsonUtil {
         val obj = JSONObject(jsonString)
         return Transaction(
             id = UUID.fromString(obj.getString("id")),
-            date = Date(obj.getString("date")),
+            date = Date(obj.getLong("date")),
             category = Category.valueOf(obj.getString("category")),
             type = TransactionType.valueOf(obj.getString("type")),
             amount = obj.getDouble("amount")
