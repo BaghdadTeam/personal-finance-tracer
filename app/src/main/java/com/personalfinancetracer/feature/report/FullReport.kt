@@ -5,18 +5,41 @@ import com.personalfinancetracer.feature.summary.FullSummary
 
 class FullReport(override var fullSummary: FullSummary): Report {
     override fun getTotalSummaryReport() {
-        println(fullSummary.getTotalSummary())
+        val depositAndWithDraw = fullSummary.getTotalSummary()
+
+        println("Total Income: ${depositAndWithDraw["Deposit"]}")
+        println("Total Expense: ${depositAndWithDraw["Deposit"]}")
+        println("Balance: ${(depositAndWithDraw["Deposit"]?.toInt()?:0) - (depositAndWithDraw["WithDraw"]?.toInt()?:0)} ")
+        println("-----------------------------")
     }
 
     override fun getCategorySummaryReport(category: String) {
-        println(fullSummary.getCategorySummary(category))
+        val depositAndWithDraw = fullSummary.getCategorySummary(category)
+
+        println("Category: $category")
+        println("Total Income: ${depositAndWithDraw["Deposit"]}")
+        println("Total Expense: ${depositAndWithDraw["Deposit"]}")
+        println("Balance: ${(depositAndWithDraw["Deposit"]?.toInt()?:0) - (depositAndWithDraw["WithDraw"]?.toInt()?:0)} ")
+        println("-----------------------------")
     }
 
     override fun getMonthlySummaryReport(month: String) {
-        println(fullSummary.getMonthlySummary(month))
+        val depositAndWithDraw = fullSummary.getMonthlySummary(month)
+
+        println("month: $month")
+        println("Total Income: ${depositAndWithDraw["Deposit"]}")
+        println("Total Expense: ${depositAndWithDraw["Deposit"]}")
+        println("Balance: ${(depositAndWithDraw["Deposit"]?.toInt()?:0) - (depositAndWithDraw["WithDraw"]?.toInt()?:0)} ")
+        println("-----------------------------")
     }
 
     override fun getCategoryMonthlySummaryReport(category: String, month: String) {
-        println(fullSummary.getCategoryMonthlySummary(category, month))
+        val depositAndWithDraw = fullSummary.getCategoryMonthlySummary(category, month)
+
+        println("Category : $category , Month: $month")
+        println("Total Income: ${depositAndWithDraw["Deposit"]}")
+        println("Total Expense: ${depositAndWithDraw["Deposit"]}")
+        println("Balance: ${(depositAndWithDraw["Deposit"]?.toInt()?:0) - (depositAndWithDraw["WithDraw"]?.toInt()?:0)} ")
+        println("-----------------------------")
     }
 }
