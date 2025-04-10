@@ -13,8 +13,8 @@ class SearchTransactionUseCase: Command {
 
                 println("Transaction Details : Amount 10 , Type income , Category Food")
                 println(
-                    "Do you want to delete or edit this transaction ?(1 for delete , 2 for edit ," +
-                            " or exit)"
+                    "Do you want to delete or edit this transaction ?\n1 - Delete\n2 - Edit ," +
+                            "\n0 - Exit"
                 )
                 val userChoice = readln()
                 if (userChoice.toIntOrNull() == 1) {
@@ -27,7 +27,7 @@ class SearchTransactionUseCase: Command {
                 } else {
 
                     println("Exiting ...")
-                    this.execute()
+                this.execute()
                 }
             } else {
                 println("Transaction Not Found , Please Try Again")
