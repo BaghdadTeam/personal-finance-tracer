@@ -3,75 +3,70 @@ package com.personalfinancetracer.utils
 import com.personalfinancetracer.models.Category
 import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.models.TransactionType
-import org.json.JSONArray
-import org.json.JSONObject
 import java.util.Date
 import java.util.UUID
 
 object JsonUtil {
 
     /**
-     * Serializes a transaction object into a JSON string.
+     * Serializes a transaction object into a Map<String, Any>.
      *
      * @param transaction The transaction object to serialize.
-     * @return A JSON string representation of the transaction.
+     * @return A Map<String, Any> representation of the transaction.
      */
-    fun serializeTransaction(transaction: Transaction): String {
-        return JSONObject().apply {
-            put("id", transaction.id.toString())
-            put("date", transaction.date.time)
-            put("category", transaction.category.name)
-            put("type", transaction.type.name)
-            put("amount", transaction.amount)
-        }.toString()
-    }
-
-    /**
-     * Deserializes a JSON string into a transaction object.
-     *
-     * @param jsonString The JSON string to deserialize.
-     * @return The deserialized transaction object.
-     * @throws NotImplementedError This method needs to be implemented.
-     */
-    fun deserializeTransaction(jsonString: String): Transaction {
-        val obj = JSONObject(jsonString)
-        return Transaction(
-            id = UUID.fromString(obj.getString("id")),
-            date = Date(obj.getLong("date")),
-            category = Category.valueOf(obj.getString("category")),
-            type = TransactionType.valueOf(obj.getString("type")),
-            amount = obj.getDouble("amount")
+    fun serializeTransaction(transaction: Transaction): Map<String, Any> {
+        return mapOf(
+            "id" to transaction.id,
+            "date" to transaction.date.time,
+            "category" to transaction.category.name,
+            "type" to transaction.type.name,
+            "amount" to transaction.amount
         )
     }
 
     /**
-     * Serializes a list of transaction objects into a JSON string.
+     * Deserializes a Map<String, Any> into a transaction object.
      *
-     * @param transactions The list of transaction objects to serialize.
-     * @return A JSON string representation of the list of transactions.
+     * @param transactionMap The Map<String, Any> to deserialize.
+     * @return The deserialized transaction object.
      */
-    fun serializeTransactionList(transactions: List<Transaction>): String {
-        val jsonArray = JSONArray()
-        transactions.forEach { transaction ->
-            jsonArray.put(JSONObject(serializeTransaction(transaction)))
-        }
-        return jsonArray.toString()
+    fun deserializeTransaction(transactionMap: Map<String, String>): Transaction {
+        val id = UUID.fromString(transactionMap["id"] as String)
+        val category = Category.valueOf(transactionMap["category"] as String)
+        val type = TransactionType.valueOf(transactionMap["type"] as String)
+        val amount = (transactionMap["amount"] as String).toDouble()
+
+        val date = transactionMap["date"]!!.toLong()
+        return Transaction(id, Date(date), category, type, amount)
     }
 
     /**
-     * Deserializes a JSON string into a list of transaction objects.
+     * Serializes a list of transaction objects into a JSON-like string.
      *
-     * @param jsonString The JSON string to deserialize.
+     * @param transactions The list of transaction objects to serialize.
+     * @return A JSON-like string representation of the list of transactions.
+     */
+    fun serializeTransactionList(transactions: List<Transaction>): String {
+        val jsonArray = transactions.joinToString(prefix = "[", postfix = "]") { transaction ->
+            serializeTransaction(transaction).toString()
+        }
+        return jsonArray
+    }
+
+    /**
+     * Deserializes a JSON-like string into a list of transaction objects.
+     *
+     * @param jsonString The JSON-like string to deserialize.
      * @return A list of deserialized transaction objects.
-     * @throws NotImplementedError This method needs to be implemented.
      */
     fun deserializeTransactionList(jsonString: String): List<Transaction> {
-        val jsonArray = JSONArray(jsonString)
-        val transactions = mutableListOf<Transaction>()
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(i)
-            transactions.add(deserializeTransaction(jsonObject.toString()))
+        val jsonArray = jsonString.removePrefix("[{").removeSuffix("}]").split("}, {")
+        return jsonArray.map { json ->
+            val jsonObject = json.split(",").associate {
+                val (key, value) = it.split("=")
+                key.trim() to value
+            }
+            deserializeTransaction(jsonObject)
         }
-        return transactions
     }
 }

@@ -18,11 +18,19 @@ class FileTransactionStorage : DataSource {
      */
     override fun saveTransaction(transaction: Transaction): Boolean {
         return try {
-            file.appendText(JsonUtil.serializeTransaction(transaction))
+            if (!file.exists()) file.createNewFile()
+
+            val transactions = getAllTransactions().toMutableList()
+            transactions.add(transaction)
+
+            // Rewrite the entire list
+            file.writeText(JsonUtil.serializeTransactionList(transactions))
+
             println("Transaction has been saved to file: $FILE_NAME")
             true
         } catch (e: Exception) {
-            println("Sorry there were an error while saving your transaction to the file, please try again later")
+            e.printStackTrace()
+            println("Error saving transaction: ${e.message}")
             false
         }
     }
@@ -34,8 +42,13 @@ class FileTransactionStorage : DataSource {
      */
     override fun getAllTransactions(): List<Transaction> {
         val transaction: List<Transaction> = try {
+            val str = file.readText()
+            if (str.isEmpty()) {
+                println("No transactions found in the file.")
+                return emptyList()
+            }
             file.readText().let { JsonUtil.deserializeTransactionList(it) }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             println("Sorry there were an error while loading your transactions from the file, please try again later")
             emptyList()
         }
@@ -62,7 +75,7 @@ class FileTransactionStorage : DataSource {
                 println("Transaction not found")
                 false
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             println("Sorry there were an error while editing your transaction in the file, please try again later")
             false
         }
@@ -73,7 +86,6 @@ class FileTransactionStorage : DataSource {
      * Deletes a transaction from the file.
      *
      * @param transactionID The ID of the transaction to delete.
-     * @param transaction The transaction object to delete.
      * @return `true` if the transaction was successfully deleted, `false` otherwise.
      */
     override fun deleteTransaction(transactionID: String): Boolean {
@@ -89,7 +101,7 @@ class FileTransactionStorage : DataSource {
                 println("Transaction not found")
                 false
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             println("Sorry there were an error while deleting your transaction from the file, please try again later")
             false
         }
