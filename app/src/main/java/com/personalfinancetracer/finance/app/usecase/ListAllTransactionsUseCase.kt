@@ -20,8 +20,8 @@ class ListAllTransactionsUseCase:Command {
         if (listOfTransactions.isEmpty()) println("No transactions found")
         else
             listOfTransactions.forEachIndexed { index, transaction ->
-                println("$index - ${transaction.id} | ${transaction.category} | ${transaction.type} | " +
-                        "${transaction.amount} ${transaction.date}")
+                println("${index + 1} - ${transaction.id} | ${transaction.category} | ${transaction.type} | " +
+                        "${transaction.amount} | ${transaction.date}")
             }
 
 
