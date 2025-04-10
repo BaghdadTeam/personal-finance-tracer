@@ -33,8 +33,7 @@ interface DataSource {
      * Deletes an existing transaction.
      *
      * @param transactionID The unique identifier of the transaction to be deleted.
-     * @param transaction The transaction object to be deleted.
      * @return `true` if the transaction was deleted successfully, `false` otherwise.
      */
-    fun deleteTransaction(transactionID: String, transaction: Transaction): Boolean
+    fun deleteTransaction(transactionID: String): Boolean
 }
