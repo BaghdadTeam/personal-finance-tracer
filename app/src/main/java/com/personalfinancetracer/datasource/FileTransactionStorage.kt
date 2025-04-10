@@ -76,7 +76,7 @@ class FileTransactionStorage : DataSource {
      * @param transaction The transaction object to delete.
      * @return `true` if the transaction was successfully deleted, `false` otherwise.
      */
-    override fun deleteTransaction(transactionID: String, transaction: Transaction): Boolean {
+    override fun deleteTransaction(transactionID: String): Boolean {
         return try {
             val transactions = getAllTransactions().toMutableList()
             val index = transactions.indexOfFirst { it.id.toString() == transactionID }
