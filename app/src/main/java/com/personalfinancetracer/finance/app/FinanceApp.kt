@@ -1,18 +1,19 @@
 package com.personalfinancetracer.finance.app
-import com.personalfinancetracer.finance.app.usecase.AddTransactionUseCase
-import com.personalfinancetracer.finance.app.usecase.GenerateCategorySummaryUseCase
-import com.personalfinancetracer.finance.app.usecase.GenerateMonthlySummaryUseCase
-import com.personalfinancetracer.finance.app.usecase.GenerateReportUseCase
-import com.personalfinancetracer.finance.app.usecase.ListAllTransactionsUseCase
-import com.personalfinancetracer.finance.app.usecase.SearchTransactionUseCase
+import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
+import com.personalfinancetracer.finance.app.cli.UserInputImpl
+import com.personalfinancetracer.models.TransactionType
 
 class FinanceApp {
     private var isOn = true
     private val commandsList = listOf(
+        "",
         "What do you wanna do choice from (0 - 6)", "1 - Add new transaction",
-        "2 - Search Transaction", "3 - List all your transactions", "4 - Generate new Report",
-        "5 - Generate monthly summary","6 - Generate category summary", "0 - Exit"
+        "2 - View Transaction", "3 - Delete Transaction", "4 - Edit Transaction",
+        "5 - List All Transactions", "6 - Generate Report", "7 - Get Monthly Summary", "0 - Exit"
     )
+
+
+    var balance = 0.0
 
     fun run() {
         println("Welcome to your favorite finance personal tracker 👋")
@@ -23,13 +24,49 @@ class FinanceApp {
             println("Please Enter : ")
             val userChoice = readln()
             when (userChoice.toIntOrNull()) {
-                1 -> AddTransactionUseCase().execute()
-                2 -> SearchTransactionUseCase().execute()
-                3 -> ListAllTransactionsUseCase().execute()
-                4 -> GenerateReportUseCase().execute()
-                5 -> GenerateMonthlySummaryUseCase().execute()
-                6 -> GenerateCategorySummaryUseCase().execute()
-                0  -> {
+                1 -> {
+                    val amount = UserInputImpl().readAmount()
+                    val transactionType = UserInputImpl().choiceTransactionType()
+                    val category = UserInputImpl().choiceCategory()
+                    if (amount > balance && transactionType == TransactionType.EXPENSE) println("Insufficient Balance")
+                    else {
+                        TransactionsServicesImpl().addTransactionService(
+                            amount.toString(),
+                            category,
+                            transactionType
+                        )
+                        balance += amount
+                    }
+
+                }
+
+                2 -> {
+                    println("Enter the ID of the transaction:")
+                    val ID = readln()
+                    TransactionsServicesImpl().viewTransactionService(ID)
+                }
+
+                3 -> {
+                    println("Enter the ID of the transaction:")
+                    val ID = readln()
+                    TransactionsServicesImpl().deleteTransactionService(ID)
+
+                }
+
+                4 -> {
+                    println("Enter the ID of the transaction:")
+                    val ID = readln()
+
+                    TransactionsServicesImpl().editTransactionService(ID)
+                }
+
+                5 -> TransactionsServicesImpl().getAllTransactionsService()
+
+                6 -> TODO("Generate Report")
+
+                7 -> TODO("Get Monthly Summary")
+
+                0 -> {
                     println("Existing the app ...")
                     isOn = false
                 }
