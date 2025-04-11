@@ -43,8 +43,21 @@ class JsonUtilTest {
 
     @Test
     fun `deserialize JSON to transaction`() {
-        TODO("Implement it after implementing the Transaction class and its serializer")
+        val transactionMap = mapOf(
+            "id" to sampleTransaction.id.toString(),
+            "date" to sampleTransaction.date.time.toString(),
+            "category" to sampleTransaction.category.name,
+            "type" to sampleTransaction.type.name,
+            "amount" to sampleTransaction.amount.toString()
+        )
 
+        val res = JsonUtil.deserializeTransaction(transactionMap)
+
+        assert(res.id == sampleTransaction.id)
+        assert(res.date == sampleTransaction.date)
+        assert(res.category == sampleTransaction.category)
+        assert(res.type == sampleTransaction.type)
+        assert(res.amount == sampleTransaction.amount)
     }
 
     @Test
