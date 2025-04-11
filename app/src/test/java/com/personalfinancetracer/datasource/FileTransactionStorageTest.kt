@@ -56,4 +56,14 @@ class FileTransactionStorageTest {
         val loadedTransactions = storage.getAllTransactions()
         assert(loadedTransactions[0].id == transaction.id)
     }
+
+    @Test
+    fun `editTransaction edits an existing transaction in the file`() {
+        storage.saveTransaction(transaction)
+        val updatedTransaction = transaction.copy(amount = 99.99)
+        val result = storage.editTransaction(transaction.id.toString(), updatedTransaction)
+        assert(result)
+        val loadedTransactions = storage.getAllTransactions()
+        assert(loadedTransactions[0].amount == updatedTransaction.amount)
+    }
 }
