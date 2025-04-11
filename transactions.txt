@@ -1,1 +1,2 @@
-[{id=d5b0f4f5-77d8-460b-8545-e1d5e19911c3, date=1744361964310, category=SALARY, type=INCOME, amount=1000.0}, {id=93651e5a-8cbd-4e17-b39d-27be7162077b, date=1744362020255, category=SALARY, type=INCOME, amount=2000.0}, {id=48179737-91f3-4988-8ef3-28155310f5f8, date=1744362037804, category=SALARY, type=INCOME, amount=1000000.0}, {id=6e1d40d0-4383-4a0e-9d7e-9cf0b3c54f0d, date=1744362071903, category=RENT, type=EXPENSE, amount=999999.0}]
+{id=7f8379b9-bcb6-4b55-bc05-c1fcf449ecb6, date=1744369933780, category=FOOD, type=EXPENSE, amount=49.99}
+{id=053d0ff5-0bb9-4387-8cfc-617e603b3f7d, date=1744369941427, category=FOOD, type=EXPENSE, amount=49.99}

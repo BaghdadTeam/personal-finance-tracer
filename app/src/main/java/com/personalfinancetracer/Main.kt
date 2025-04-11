@@ -3,6 +3,7 @@ import com.personalfinancetracer.finance.app.FinanceApp
 import com.personalfinancetracer.finance.app.cli.UserInputImpl
 import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 
+
 fun main() {
     val userInput = UserInputImpl()
     val storage = FileTransactionStorage()
@@ -10,4 +11,5 @@ fun main() {
 
     val financeApp = FinanceApp(userInput, services)
     financeApp.run()
+
 }
