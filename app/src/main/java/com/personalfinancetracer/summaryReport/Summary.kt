@@ -1,10 +1,10 @@
 package com.personalfinancetracer.summaryReport
 
-import com.personalfinancetracer.models.Transaction
+import com.personalfinancetracer.datasource.FileTransactionStorage
 
-interface Summary{
-    val listTransaction: List<Transaction>
-    fun getTotalSummary() : Map<String , Double>
+interface SingleUserTransactionSummary{
+    val fileTransactionStorage: FileTransactionStorage
+    fun getBalanceReport() : Map<String , Double>
     fun getMonthlySummary(month : String) : Map<String , Double>
 }
 

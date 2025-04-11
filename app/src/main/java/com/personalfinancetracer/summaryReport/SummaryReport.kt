@@ -1,12 +1,15 @@
 package com.personalfinancetracer.summaryReport
 
-import com.personalfinancetracer.models.Transaction
+import com.personalfinancetracer.datasource.FileTransactionStorage
 import com.personalfinancetracer.models.TransactionType
 import com.personalfinancetracer.utils.isDateInRange
 
 
-class SummaryReport(override val listTransaction: List<Transaction>) : Summary {
-    override fun getTotalSummary(): Map<String, Double> {
+class TransactionSummary() : SingleUserTransactionSummary {
+    override val fileTransactionStorage =  FileTransactionStorage()
+    private val listTransaction = fileTransactionStorage.getAllTransactions()
+
+    override fun getBalanceReport(): Map<String, Double> {
         val totalIncome =
             listTransaction.filter { it.type == TransactionType.INCOME }.sumOf { it.amount }
         val totalExpense =
