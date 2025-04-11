@@ -62,7 +62,18 @@ class JsonUtilTest {
 
     @Test
     fun `deserialize JSON to transaction list`() {
-        TODO("Implement it after implementing the Transaction class and its serializer")
+        val listOfTransactions = listOf(
+            sampleTransaction,
+            sampleTransaction.copy(id = UUID.randomUUID(), amount = 200.0)
+        )
+        val jsonString = JsonUtil.serializeTransactionList(listOfTransactions)
+        val res = JsonUtil.deserializeTransactionList(jsonString)
 
+        assert(res.size == listOfTransactions.size)
+        assert(res[0].id == listOfTransactions[0].id)
+        assert(res[0].date == listOfTransactions[0].date)
+        assert(res[1].category == listOfTransactions[1].category)
+        assert(res[1].type == listOfTransactions[1].type)
+        assert(res[1].amount == listOfTransactions[1].amount)
     }
 }
