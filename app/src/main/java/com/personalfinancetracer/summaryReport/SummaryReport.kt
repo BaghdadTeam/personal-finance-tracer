@@ -6,7 +6,7 @@ import com.personalfinancetracer.utils.isDateInRange
 
 
 class TransactionSummary() : SingleUserTransactionSummary {
-    override val fileTransactionStorage =  FileTransactionStorage()
+    private val fileTransactionStorage =  FileTransactionStorage()
     private val listTransaction = fileTransactionStorage.getAllTransactions()
 
     override fun getBalanceReport(): Map<String, Double> {
