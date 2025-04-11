@@ -12,10 +12,13 @@ fun isDateInRange(inputDate : Date, inputMonth:String) : Boolean {
     val formatter = DateTimeFormatter.ofPattern("yyyy[-M][-d]")
     val date = LocalDate.parse("${inputDate.year}-${inputDate.month}-${inputDate.date}", formatter)
 
-    return if (date in LocalDate.of(date.year, month, 1)..LocalDate.of(date.year, month, date.lengthOfMonth()))
-    {
-        true
-    } else {
-        false
-    }
+    val initialDate = LocalDate.of(date.year, month, 1)
+    val finalDate = LocalDate.of(date.year, month, initialDate.lengthOfMonth())
+
+    return if (date in initialDate .. finalDate)
+        {
+            true
+        } else {
+            false
+        }
 }
