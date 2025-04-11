@@ -5,7 +5,7 @@ import java.util.UUID
 
 data class Transaction(
     val id: UUID = UUID.randomUUID(),
-    val date: Date,
+    val date: Date = Date(),
     val category: Category,
     val type: TransactionType,
     val amount: Double,
