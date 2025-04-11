@@ -48,4 +48,12 @@ class FileTransactionStorageTest {
         val emptyTransactions = storage.getAllTransactions()
         assert(emptyTransactions.isEmpty())
     }
+
+    @Test
+    fun `getting transactions from filled file`() {
+        storage.saveTransaction(transaction)
+
+        val loadedTransactions = storage.getAllTransactions()
+        assert(loadedTransactions[0].id == transaction.id)
+    }
 }
