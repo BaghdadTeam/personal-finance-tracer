@@ -60,7 +60,10 @@ object JsonUtil {
      * @return A list of deserialized transaction objects.
      */
     fun deserializeTransactionList(jsonString: String): List<Transaction> {
-        val jsonArray = jsonString.removePrefix("[{").removeSuffix("}]").split("}, {")
+        val objects = jsonString.removePrefix("[").removeSuffix("]")
+        if (objects.isEmpty()) return emptyList()
+        val jsonArray = jsonString.removePrefix("{").removeSuffix("}").split("}, {")
+        if (jsonArray.isEmpty()) return emptyList()
         return jsonArray.map { json ->
             val jsonObject = json.split(",").associate {
                 val (key, value) = it.split("=")

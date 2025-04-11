@@ -76,4 +76,17 @@ class JsonUtilTest {
         assert(res[1].type == listOfTransactions[1].type)
         assert(res[1].amount == listOfTransactions[1].amount)
     }
+
+    @Test
+    fun `serializing an empty list` () {
+        val res = JsonUtil.serializeTransactionList(emptyList<Transaction>())
+        assert(res == "[]")
+    }
+
+    @Test
+    fun `deserializing an empty file` () {
+        val res = JsonUtil.deserializeTransactionList("[]")
+        println("asdasd $res")
+        assert(res.isEmpty())
+    }
 }
