@@ -68,11 +68,23 @@ class FileTransactionStorageTest {
     }
 
     @Test
+    fun `editTransaction returns false for non-existing transaction`() {
+        val result = storage.editTransaction(UUID.randomUUID().toString(), transaction)
+        assert(!result)
+    }
+
+    @Test
     fun `deleteTransaction deletes a transaction from the file`() {
         storage.saveTransaction(transaction)
         val result = storage.deleteTransaction(transaction.id.toString())
         assert(result)
         val loadedTransactions = storage.getAllTransactions()
         assert(loadedTransactions.isEmpty())
+    }
+
+    @Test
+    fun `deleteTransaction returns false for non-existing transaction`() {
+        val result = storage.deleteTransaction(UUID.randomUUID().toString())
+        assert(!result)
     }
 }
