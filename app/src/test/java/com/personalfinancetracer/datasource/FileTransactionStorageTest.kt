@@ -1,9 +1,4 @@
-package com.personalfinancetracer.data.storage
-
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
-import java.io.File
+package com.personalfinancetracer.datasource
 
 //class FileTransactionStorageTest {
 //
