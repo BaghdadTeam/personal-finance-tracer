@@ -1,24 +1,23 @@
 package com.personalfinancetracer.utils
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.time.YearMonth
+import java.time.ZoneId
 import java.util.Date
 import java.util.Locale
 
 fun isDateInRange(inputDate : Date, inputMonth:String) : Boolean {
-
+    try {
     val month = java.time.Month.valueOf(inputMonth.uppercase(Locale.getDefault()))
 
-    val formatter = DateTimeFormatter.ofPattern("yyyy[-M][-d]")
-    val date = LocalDate.parse("${inputDate.year}-${inputDate.month}-${inputDate.date}", formatter)
+    val localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
-    val initialDate = LocalDate.of(date.year, month, 1)
-    val finalDate = LocalDate.of(date.year, month, initialDate.lengthOfMonth())
+    val yearMonth = YearMonth.of(localDate.year, month)
+    val initialDate = yearMonth.atDay(1)
+    val finalDate = yearMonth.atEndOfMonth()
 
-    return if (date in initialDate .. finalDate)
-        {
-            true
-        } else {
-            false
+    return localDate in initialDate..finalDate
+        }catch (e: Exception) {
+            println("Invalid Month Name")
+            return false
         }
 }
