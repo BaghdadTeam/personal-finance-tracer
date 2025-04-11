@@ -1,9 +1,9 @@
 package com.personalfinancetracer.finance.app
-import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 import com.personalfinancetracer.finance.app.cli.UserInputImpl
+import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 import com.personalfinancetracer.models.TransactionType
 
-class FinanceApp {
+class FinanceApp(private val userInput: UserInputImpl, private val services: TransactionsServicesImpl) {
     private var isOn = true
     private val commandsList = listOf(
         "",
@@ -13,54 +13,97 @@ class FinanceApp {
     )
 
 
-    var balance = 0.0
+    private var balance = 0.0
 
     fun run() {
         println("Welcome to your favorite finance personal tracker 👋")
+
+
         do {
             for (command in commandsList) {
                 println(command)
             }
+            println("Balance : $balance")
             println("Please Enter : ")
             val userChoice = readln()
             when (userChoice.toIntOrNull()) {
                 1 -> {
-                    val amount = UserInputImpl().readAmount()
-                    val transactionType = UserInputImpl().choiceTransactionType()
-                    val category = UserInputImpl().choiceCategory()
+                    val amount = userInput.readAmount()
+                    val transactionType = userInput.choiceTransactionType()
+                    val category = userInput.choiceCategory()
+                    if (amount == null || transactionType == null || category == null) {
+                        println("Please Enter a valid choice... ")
+                        return
+                    }
+
                     if (amount > balance && transactionType == TransactionType.EXPENSE) println("Insufficient Balance")
                     else {
-                        TransactionsServicesImpl().addTransactionService(
+                        services.addTransactionService(
                             amount.toString(),
                             category,
                             transactionType
                         )
-                        balance += amount
+                        if (transactionType == TransactionType.EXPENSE)
+                            balance -= amount
+                        else balance += amount
                     }
 
                 }
 
                 2 -> {
-                    println("Enter the ID of the transaction:")
-                    val ID = readln()
-                    TransactionsServicesImpl().viewTransactionService(ID)
+
+                    val id = userInput.readID()
+                    if (id == "") {
+                        println("Please Enter a valid ID ... ")
+                        return
+                    }
+                    val viewedTransaction = services.viewTransactionService(id)
+                    if (viewedTransaction != null)
+                        println(
+                            "Transaction Details : ${viewedTransaction.id} |" +
+                                    " Amount ${viewedTransaction.amount} | Type ${viewedTransaction.type} |" +
+                                    " Category ${viewedTransaction.category} | ${viewedTransaction.date}"
+                        )
+                    else
+                        println("Transaction Not Found")
                 }
 
                 3 -> {
-                    println("Enter the ID of the transaction:")
-                    val ID = readln()
-                    TransactionsServicesImpl().deleteTransactionService(ID)
+                    val id = userInput.readID()
+                    if (id == "") {
+                        println("Please Enter a valid ID ... ")
+                        return
+                    }
+
+                    balance = services.deleteTransactionService(id, balance)
 
                 }
 
                 4 -> {
-                    println("Enter the ID of the transaction:")
-                    val ID = readln()
+                    val id = userInput.readID()
+                    if (id == "") {
+                        println("Please Enter a valid ID ... ")
+                        return
+                    }
 
-                    TransactionsServicesImpl().editTransactionService(ID)
+
+                    val amount = userInput.readAmount()
+                    val transactionType = userInput.choiceTransactionType()
+                    val category = userInput.choiceCategory()
+                    if (amount == null || transactionType == null || category == null) {
+                        return
+                    }
+
+                    balance = services.editTransactionService(
+                        id,
+                        balance,
+                        amount,
+                        category,
+                        transactionType
+                    )
                 }
 
-                5 -> TransactionsServicesImpl().getAllTransactionsService()
+                5 -> services.getAllTransactionsService()
 
                 6 -> TODO("Generate Report")
 
