@@ -66,4 +66,13 @@ class FileTransactionStorageTest {
         val loadedTransactions = storage.getAllTransactions()
         assert(loadedTransactions[0].amount == updatedTransaction.amount)
     }
+
+    @Test
+    fun `deleteTransaction deletes a transaction from the file`() {
+        storage.saveTransaction(transaction)
+        val result = storage.deleteTransaction(transaction.id.toString())
+        assert(result)
+        val loadedTransactions = storage.getAllTransactions()
+        assert(loadedTransactions.isEmpty())
+    }
 }
