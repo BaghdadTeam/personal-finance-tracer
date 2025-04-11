@@ -9,9 +9,9 @@ fun main() {
     val userInput = UserInputImpl()
     val storage = FileTransactionStorage()
     val services = TransactionsServicesImpl(storage)
-//    val transactionSummaryService = TransactionSummaryServices(storage)
+    val transactionSummaryService = TransactionSummaryServices(storage)
     val financeApp = FinanceApp(userInput, services,
-//        transactionSummaryService
+        transactionSummaryService
     )
     financeApp.run()
 }
