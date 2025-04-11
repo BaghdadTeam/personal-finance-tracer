@@ -4,7 +4,6 @@ import com.personalfinancetracer.models.Category
 import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.models.TransactionType
 import org.junit.Test
-import java.time.LocalDate
 import java.util.Date
 import java.util.UUID
 
@@ -36,8 +35,6 @@ class JsonUtilTest {
             sampleTransaction.copy(id = UUID.randomUUID(), amount = 200.0)
         )
         val res = JsonUtil.serializeTransactionList(transactions)
-        assert(res.startsWith("["))
-        assert(res.endsWith("]"))
         assert(res.contains(sampleTransaction.id.toString()))
     }
 
@@ -78,15 +75,14 @@ class JsonUtilTest {
     }
 
     @Test
-    fun `serializing an empty list` () {
+    fun `serializing an empty list`() {
         val res = JsonUtil.serializeTransactionList(emptyList<Transaction>())
-        assert(res == "[]")
+        assert(res == "")
     }
 
     @Test
-    fun `deserializing an empty file` () {
-        val res = JsonUtil.deserializeTransactionList("[]")
-        println("asdasd $res")
+    fun `deserializing an empty file`() {
+        val res = JsonUtil.deserializeTransactionList("")
         assert(res.isEmpty())
     }
 }

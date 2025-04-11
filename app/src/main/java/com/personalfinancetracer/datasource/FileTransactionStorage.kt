@@ -1,5 +1,6 @@
 package com.personalfinancetracer.datasource
 
+import android.util.Log
 import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.utils.JsonUtil
 import java.io.File
@@ -8,7 +9,7 @@ import java.io.File
  * A storage implementation for transactions that uses a file as the data source.
  * This class provides methods to save and load transactions to/from a file.
  */
-class FileTransactionStorage : DataSource {
+class FileTransactionStorage(private val file: File = File(FILE_NAME)) : DataSource {
 
     /**
      * Saves a single transaction to the file.
@@ -26,7 +27,7 @@ class FileTransactionStorage : DataSource {
             // Rewrite the entire list
             file.writeText(JsonUtil.serializeTransactionList(transactions))
 
-            println("Transaction has been saved to file: $FILE_NAME")
+            println("Transaction has been saved to file: ${file.name}")
             true
         } catch (e: Exception) {
             e.printStackTrace()
@@ -112,10 +113,5 @@ class FileTransactionStorage : DataSource {
          * The name of the file where transactions are stored.
          */
         private const val FILE_NAME = "transactions.txt"
-
-        /**
-         * The file object representing the transactions file.
-         */
-        val file = File(FILE_NAME)
     }
 }
