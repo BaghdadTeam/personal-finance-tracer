@@ -1,9 +1,12 @@
 package com.personalfinancetracer.finance.app
 import com.personalfinancetracer.finance.app.cli.UserInputImpl
+import com.personalfinancetracer.finance.app.services.TransactionSummaryServices
 import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 import com.personalfinancetracer.models.TransactionType
 
-class FinanceApp(private val userInput: UserInputImpl, private val services: TransactionsServicesImpl) {
+class FinanceApp(private val userInput: UserInputImpl, private val services: TransactionsServicesImpl ,
+//                 private val transactionSummaryService : TransactionSummaryServices
+) {
     private var isOn = true
     private val commandsList = listOf(
         "",
@@ -105,9 +108,11 @@ class FinanceApp(private val userInput: UserInputImpl, private val services: Tra
 
                 5 -> services.getAllTransactionsService()
 
-                6 -> TODO("Generate Report")
-
-                7 -> TODO("Get Monthly Summary")
+//                6 -> transactionSummaryService.getBalanceReport().forEach { (key, value) ->
+//                    println("$key : $value")
+//
+//                }
+//                7 -> transactionSummaryService.getMonthlySummary(userInput.readMonth()).forEach { (key, value) -> println("$key : $value") }
 
                 0 -> {
                     println("Existing the app ...")
