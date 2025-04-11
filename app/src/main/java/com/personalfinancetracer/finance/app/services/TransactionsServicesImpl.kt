@@ -10,7 +10,7 @@ import java.util.UUID
 class TransactionsServicesImpl(private val storage: FileTransactionStorage): TransactionsServices {
 
 
-    private val allTransactions = storage.getAllTransactions()
+
 
     /**
      * Adds a new transaction.
@@ -37,12 +37,14 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
      */
 
     override fun editTransactionService(
+
         id: String,
         balance: Double,
         amount: Double,
         category: Category,
         transactionType: TransactionType
     ): Double {
+        val allTransactions = storage.getAllTransactions()
         val updatedBalance: Double
         val transaction = allTransactions.find { it.id.toString() == id }
         if (transaction != null) {
@@ -81,6 +83,7 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
      * Views a transaction by its ID.
      */
     override fun viewTransactionService(id: String):Transaction? {
+        val allTransactions = storage.getAllTransactions()
 
         val transaction = allTransactions.find { it.id.toString() == id }
         return transaction
@@ -92,7 +95,7 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
      */
     override fun deleteTransactionService(id: String, balance: Double): Double {
         var updatedBalance = balance
-
+        val allTransactions = storage.getAllTransactions()
         val transaction = allTransactions.find { it.id.toString() == id }
         if (transaction != null) {
             storage.deleteTransaction(id)
@@ -117,7 +120,8 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
      * Gets all transactions.
      */
 
-    override fun getAllTransactionsService() {
+    override fun getAllTransactionsService() : List<Transaction>{
+        val allTransactions = storage.getAllTransactions()
         if (allTransactions.isEmpty()) println("No Transactions Found")
         else {
             println("${allTransactions.size} Transactions Found")
@@ -130,6 +134,7 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
             }
 
         }
+        return allTransactions
     }
 
 }

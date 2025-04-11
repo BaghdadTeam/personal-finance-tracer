@@ -11,6 +11,9 @@ class UserInputImpl : UserInput {
         println("0 - Exit")
         val userChoice = readln().toDoubleOrNull()
         if (userChoice == 0.0) exitProcess(0)
+        if (userChoice != null) {
+            if (userChoice < 0 ) return null
+        }
         return userChoice
     }
 
