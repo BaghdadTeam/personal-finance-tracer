@@ -47,7 +47,7 @@ object JsonUtil {
      * @return A JSON-like string representation of the list of transactions.
      */
     fun serializeTransactionList(transactions: List<Transaction>): String {
-        val jsonArray = transactions.joinToString(prefix = "[", postfix = "]") { transaction ->
+        val jsonArray = transactions.joinToString(separator = "\n") { transaction ->
             serializeTransaction(transaction).toString()
         }
         return jsonArray
@@ -60,13 +60,19 @@ object JsonUtil {
      * @return A list of deserialized transaction objects.
      */
     fun deserializeTransactionList(jsonString: String): List<Transaction> {
-        val jsonArray = jsonString.removePrefix("[{").removeSuffix("}]").split("}, {")
-        return jsonArray.map { json ->
-            val jsonObject = json.split(",").associate {
-                val (key, value) = it.split("=")
-                key.trim() to value
+        if (jsonString.isEmpty()) return emptyList()
+        return jsonString.lines()
+            .filter { it.isNotBlank() }
+            .map { json ->
+                val map = json
+                    .removePrefix("{")
+                    .removeSuffix("}")
+                    .split(",")
+                    .associate {
+                        val (key, value) = it.split("=")
+                        key.trim() to value.trim()
+                    }
+                deserializeTransaction(map)
             }
-            deserializeTransaction(jsonObject)
-        }
     }
 }
