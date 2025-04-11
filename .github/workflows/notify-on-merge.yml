@@ -1,0 +1,16 @@
+name: Notify on Merge to Development
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send basic notification to Slack (baghdad-squad)
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
