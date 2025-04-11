@@ -1,2 +1,0 @@
-{id=7f8379b9-bcb6-4b55-bc05-c1fcf449ecb6, date=1744369933780, category=FOOD, type=EXPENSE, amount=49.99}
-{id=053d0ff5-0bb9-4387-8cfc-617e603b3f7d, date=1744369941427, category=FOOD, type=EXPENSE, amount=49.99}
