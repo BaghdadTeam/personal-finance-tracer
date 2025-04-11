@@ -5,7 +5,7 @@ import com.personalfinancetracer.models.TransactionType
 import com.personalfinancetracer.utils.isDateInRange
 
 
-class TransactionSummaryServices(private val storage : FileTransactionStorage) : SingleUserTransactionSummaryServices {
+class TransactionSummaryServices(private val storage : FileTransactionStorage) : TransactionSummary {
 
     override fun getBalanceReport(): Map<String, Double> {
         val totalIncome =
