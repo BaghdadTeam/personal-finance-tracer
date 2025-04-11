@@ -30,9 +30,15 @@ class JsonUtilTest {
     }
 
     @Test
-    fun `serialize transaction list to JSON`() {
-        TODO("Implement it after implementing the Transaction class and its serializer")
-
+    fun `serialize transaction list transactions to map`() {
+        val transactions = listOf(
+            sampleTransaction,
+            sampleTransaction.copy(id = UUID.randomUUID(), amount = 200.0)
+        )
+        val res = JsonUtil.serializeTransactionList(transactions)
+        assert(res.startsWith("["))
+        assert(res.endsWith("]"))
+        assert(res.contains(sampleTransaction.id.toString()))
     }
 
     @Test
