@@ -27,6 +27,7 @@ class FileTransactionStorageTest {
             TransactionType.EXPENSE,
             49.99
         )
+
     }
 
     @After
@@ -41,5 +42,10 @@ class FileTransactionStorageTest {
         val savedTransactions = storage.getAllTransactions()
         assert(savedTransactions.isNotEmpty())
     }
-    
+
+    @Test
+    fun `getting transaction from empty file`() {
+        val emptyTransactions = storage.getAllTransactions()
+        assert(emptyTransactions.isEmpty())
+    }
 }

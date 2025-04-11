@@ -1,6 +1,5 @@
 package com.personalfinancetracer.datasource
 
-import android.util.Log
 import com.personalfinancetracer.models.Transaction
 import com.personalfinancetracer.utils.JsonUtil
 import java.io.File
