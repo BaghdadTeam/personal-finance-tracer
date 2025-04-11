@@ -1,4 +1,7 @@
-package com.personalfinancetracer
+import com.personalfinancetracer.datasource.FileTransactionStorage
+import com.personalfinancetracer.finance.app.FinanceApp
+import com.personalfinancetracer.finance.app.cli.UserInputImpl
+import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 
 import com.personalfinancetracer.datasource.FileTransactionStorage
 import com.personalfinancetracer.models.Category
@@ -7,14 +10,11 @@ import com.personalfinancetracer.models.TransactionType
 import java.util.Date
 
 fun main() {
+    val userInput = UserInputImpl()
+    val storage = FileTransactionStorage()
+    val services = TransactionsServicesImpl(storage)
 
-    FileTransactionStorage().saveTransaction(
-        Transaction(
-            date = Date(),
-            category = Category.FOOD,
-            type = TransactionType.EXPENSE,
-            amount = 49.99
-        )
-    )
+    val financeApp = FinanceApp(userInput, services)
+    financeApp.run()
 
 }
