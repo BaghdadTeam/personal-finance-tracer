@@ -9,5 +9,5 @@ interface TransactionsServices {
     fun editTransactionService(id: String, balance: Double, amount: Double, category: Category, transactionType: TransactionType  ): Double
     fun viewTransactionService(id: String):Transaction?
     fun deleteTransactionService(id: String, balance: Double): Double
-    fun getAllTransactionsService()
+    fun getAllTransactionsService():List<Transaction>
 }
