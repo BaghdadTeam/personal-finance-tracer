@@ -26,11 +26,9 @@ class FileTransactionStorage(private val file: File = File(FILE_NAME)) : DataSou
             // Rewrite the entire list
             file.writeText(JsonUtil.serializeTransactionList(transactions))
 
-            println("Transaction has been saved to file: ${file.name}")
             true
         } catch (e: Exception) {
             e.printStackTrace()
-            println("Error saving transaction: ${e.message}")
             false
         }
     }
@@ -44,12 +42,10 @@ class FileTransactionStorage(private val file: File = File(FILE_NAME)) : DataSou
         val transaction: List<Transaction> = try {
             val str = file.readText()
             if (str.isEmpty()) {
-                println("No transactions found in the file.")
                 return emptyList()
             }
             file.readText().let { JsonUtil.deserializeTransactionList(it) }
         } catch (_: Exception) {
-            println("Sorry there were an error while loading your transactions from the file, please try again later")
             emptyList()
         }
         return transaction
@@ -69,14 +65,11 @@ class FileTransactionStorage(private val file: File = File(FILE_NAME)) : DataSou
             if (index != -1) {
                 transactions[index] = transaction
                 file.writeText(JsonUtil.serializeTransactionList(transactions))
-                println("Transaction has been edited in the file: $FILE_NAME")
                 true
             } else {
-                println("Transaction not found")
                 false
             }
         } catch (_: Exception) {
-            println("Sorry there were an error while editing your transaction in the file, please try again later")
             false
         }
     }
@@ -95,14 +88,11 @@ class FileTransactionStorage(private val file: File = File(FILE_NAME)) : DataSou
             if (index != -1) {
                 transactions.removeAt(index)
                 file.writeText(JsonUtil.serializeTransactionList(transactions))
-                println("Transaction has been deleted from the file: $FILE_NAME")
                 true
             } else {
-                println("Transaction not found")
                 false
             }
         } catch (_: Exception) {
-            println("Sorry there were an error while deleting your transaction from the file, please try again later")
             false
         }
     }

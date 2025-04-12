@@ -24,9 +24,8 @@ class TransactionsServicesImpl(private val storage: FileTransactionStorage): Tra
 
         val newTransaction =
             Transaction(category = category, amount = amount.toDouble(), type = transactionType)
-        println("${newTransaction.category} , ${newTransaction.amount} , ${newTransaction.type}")
         if (storage.saveTransaction(newTransaction))
-            println("New Transaction Added : Details $amount , $category , $transactionType")
+            println("New Transaction Added : Details : ${newTransaction.id} - $amount , $category , $transactionType")
 
 
     }

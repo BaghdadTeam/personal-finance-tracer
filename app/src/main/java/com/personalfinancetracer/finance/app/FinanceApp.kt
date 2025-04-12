@@ -5,7 +5,7 @@ import com.personalfinancetracer.finance.app.services.TransactionsServicesImpl
 import com.personalfinancetracer.models.TransactionType
 
 class FinanceApp(private val userInput: UserInputImpl, private val services: TransactionsServicesImpl ,
-//                 private val transactionSummaryService : TransactionSummaryServices
+                 private val transactionSummaryService : TransactionSummaryServices
 ) {
     private var isOn = true
     private val commandsList = listOf(
@@ -108,20 +108,18 @@ class FinanceApp(private val userInput: UserInputImpl, private val services: Tra
 
                 5 -> services.getAllTransactionsService()
 
-//                6 -> transactionSummaryService.getBalanceReport().forEach { (key, value) ->
-//                    println("$key : $value")
-//
-//                }
-//                7 -> transactionSummaryService.getMonthlySummary(userInput.readMonth()).forEach { (key, value) -> println("$key : $value") }
+                6 -> transactionSummaryService.getBalanceReport().forEach { (key, value) ->
+                    println("$key : $value")
+              }
+                7 -> transactionSummaryService.getMonthlySummary(userInput.readMonth()).forEach { (key, value) -> println("$key : $value") }
 
                 0 -> {
                     println("Existing the app ...")
                     isOn = false
                 }
 
-                else -> {
-                    println("Please Enter a valid choice... ")
-                }
+                else -> println("Please Enter a valid choice... ")
+
             }
         } while (isOn)
     }

@@ -60,13 +60,13 @@ class UserInputImpl : UserInput {
 
     }
 
-//    override fun readMonth(): String {
-//        println("Please Enter the Month of the transaction:")
-//        println("0 - Exit")
-//        val userInput = readln()
-//        if (userInput == "0") exitProcess(0)
-//        return userInput
-//    }
+    override fun readMonth(): String {
+        println("Please Enter the Month of the transaction:")
+        println("0 - Exit")
+        val userInput = readln()
+        if (userInput == "0") exitProcess(0)
+        return userInput
+    }
 
 
 }

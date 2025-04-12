@@ -8,7 +8,7 @@ interface UserInput {
     fun choiceCategory(): Category?
     fun choiceTransactionType(): TransactionType?
     fun readID():String
-//    fun readMonth():String
+    fun readMonth():String
 
 
 }
